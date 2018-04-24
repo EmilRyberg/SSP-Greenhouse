@@ -32,3 +32,4 @@
 *.app
 Sensor/.vs/
 Sensor/Sensor/Debug/
+Sensor/Sensor/x64/Debug
