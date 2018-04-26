@@ -89,7 +89,8 @@ void loop() {
         Serial.find("{");
         while (Serial.peek() != '}') {
             long pin = Serial.parseInt();
-            long method = Serial.parseInt(); //0 = digital, 1 = analog
+            Serial.read();
+            char method = Serial.read(); //'d' = digital, 'a' = analog
             long value = Serial.parseInt();
             /*  Serial.print("pin: ");
                 Serial.print(pin);
@@ -97,7 +98,7 @@ void loop() {
                 Serial.print(" ");
                 Serial.println(value);*/
             pinMode(pin, OUTPUT);
-            if (method == 1) {
+            if (method == 'a') {
                 analogWrite(pin, value);
             } else {
                 digitalWrite(pin, value);
