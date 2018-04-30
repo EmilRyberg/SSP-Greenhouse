@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QTextStream standardOutput(stdout);
     QSerialPort serialPort;
-    const QString serialPortName = "COM3";
+    const QString serialPortName = "COM7";
 
     serialPort.setPortName(serialPortName);
     serialPort.setBaudRate(115200);

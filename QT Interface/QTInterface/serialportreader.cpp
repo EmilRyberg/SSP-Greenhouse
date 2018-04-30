@@ -1,5 +1,6 @@
 #include "serialportreader.h"
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <iomanip>      // std::setprecision
 #include <QCoreApplication>
 #include <stdlib.h>     /* atof */
