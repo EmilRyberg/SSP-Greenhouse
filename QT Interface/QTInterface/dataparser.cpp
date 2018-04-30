@@ -4,9 +4,9 @@
 #include <iostream>
 #include <vector>
 
-std::vector<float> DataParser::parseData(QByteArray *readData)
+std::vector<double> DataParser::parseData(QByteArray *readData)
 {
-    std::vector<float> parsedData;
+    std::vector<double> parsedData;
     bool isReadingValue = false;
     QString currentValue = "";
     for (int i = 0; i < readData->size(); i++)
@@ -21,12 +21,12 @@ std::vector<float> DataParser::parseData(QByteArray *readData)
         {
             if(readData->at(i) == ',')
             {
-                parsedData.push_back(currentValue.toFloat());
+                parsedData.push_back(currentValue.toDouble());
                 currentValue.clear();
             }
             else if(readData->at(i) == '}')
             {
-                parsedData.push_back(currentValue.toFloat());
+                parsedData.push_back(currentValue.toDouble());
                 readData->clear();
                 return parsedData;
             }
@@ -37,6 +37,6 @@ std::vector<float> DataParser::parseData(QByteArray *readData)
         }
     }
 
-    return std::vector<float>();
+    return std::vector<double>();
 }
 

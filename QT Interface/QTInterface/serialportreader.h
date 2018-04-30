@@ -7,7 +7,9 @@
 
 #include <QTextStream>
 #include <QTimer>
+#include <QMainWindow>
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "dataparser.h"
 
 class SerialPortReader : public QObject

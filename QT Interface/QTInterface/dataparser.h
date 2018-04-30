@@ -7,7 +7,7 @@
 class DataParser
 {
 public:
-    std::vector<float> parseData(QByteArray *readData);
+    std::vector<double> parseData(QByteArray *readData);
 };
 
 #endif // DATAPARSER_H

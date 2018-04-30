@@ -1,4 +1,5 @@
 #include "serialportreader.h"
+#include "mainwindow.h"
 #include <iomanip>      // std::setprecision
 #include <QCoreApplication>
 #include <stdlib.h>     /* atof */
@@ -20,16 +21,16 @@ SerialPortReader::SerialPortReader(QSerialPort *serialPort, Ui::MainWindow *ui ,
 void SerialPortReader::handleReadyRead()
 {
     m_readData.append(m_serialPort->readAll());
-    double value = 0.0;
-    QString payload;
-    std::vector<float> parsedData = dataParser.parseData(&m_readData);
+    std::vector<double> parsedData = dataParser.parseData(&m_readData);
 
     if (!parsedData.empty())
     {
-        for(float f : parsedData)
+        for(double f : parsedData)
         {
             std::cout << f << std::endl;
         }
+        double temperature = parsedData[0];
+        ui->temperatureNumber->display(temperature);
     }
 }
 
