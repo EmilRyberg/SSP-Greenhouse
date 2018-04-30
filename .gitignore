@@ -32,3 +32,4 @@
 *.app
 Sensor/.vs/
 Sensor/Sensor/Debug/
+QT Interface/build-QTInterface-Desktop-Debug/
