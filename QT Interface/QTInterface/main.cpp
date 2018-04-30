@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     QTextStream standardOutput(stdout);
     QSerialPort serialPort;
-    const QString serialPortName = "COM3";
+    const QString serialPortName = "COM7";
 
     serialPort.setPortName(serialPortName);
     serialPort.setBaudRate(115200);
