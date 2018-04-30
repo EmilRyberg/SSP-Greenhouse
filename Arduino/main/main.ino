@@ -64,23 +64,17 @@ void loop() {
     Serial.print("Light: ");
     Serial.println(light);
 
-    //Serialization: {dataName=123;dataName2=456}
+    //Serialization: {1,2,3,4,5}
     Serial.print("{");
-    Serial.print("temperatureInside=");
     Serial.print(temperatureInside);
-    Serial.print(";");
-    Serial.print("temperatureOutside=");
+    Serial.print(",");
     Serial.print(temperatureOutside);
-    Serial.print(";");
-    Serial.print("humidityInside=");
+    Serial.print(",");
     Serial.print(humidityInside);
-    Serial.print(";");
-    Serial.print("humidityOutside=");
+    Serial.print(",");
     Serial.print(humidityOutside);
-    Serial.print(";");
-    Serial.print("light=");
+    Serial.print(",");
     Serial.print(light);
-    Serial.print(";");
     Serial.println("}");
 
     //command reading, format: {pin, method, value, pin2, method2, value2}
