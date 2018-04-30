@@ -8,6 +8,7 @@
 #include <QTextStream>
 #include <QTimer>
 #include "mainwindow.h"
+#include "dataparser.h"
 
 class SerialPortReader : public QObject
 {
@@ -24,6 +25,7 @@ private:
     QByteArray m_readData;
     QTextStream m_standardOutput;
     Ui::MainWindow *ui;
+    DataParser dataParser;
 };
 
 #endif // SERIALPORTREADER_H

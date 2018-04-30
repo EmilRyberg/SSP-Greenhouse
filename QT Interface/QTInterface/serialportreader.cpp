@@ -4,6 +4,7 @@
 #include <stdlib.h>     /* atof */
 #include <iostream>
 #include <stdio.h>
+#include <vector>
 
 SerialPortReader::SerialPortReader(QSerialPort *serialPort, Ui::MainWindow *ui ,QObject *parent) :
     QObject(parent),
@@ -19,14 +20,17 @@ SerialPortReader::SerialPortReader(QSerialPort *serialPort, Ui::MainWindow *ui ,
 void SerialPortReader::handleReadyRead()
 {
     m_readData.append(m_serialPort->readAll());
-    double value=0.0;
+    double value = 0.0;
     QString payload;
+    std::vector<float> parsedData = dataParser.parseData(&m_readData);
 
-    //if (pp.payload(&m_readData, &payload))
-    //{
-    //    value= payload.toDouble();
-    //    std::cout << " : " << value << std::endl;
-    //}
+    if (!parsedData.empty())
+    {
+        for(float f : parsedData)
+        {
+            std::cout << f << std::endl;
+        }
+    }
 }
 
 
