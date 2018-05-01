@@ -50,7 +50,15 @@ void SerialPortReader::handleReadyRead()
             std::cout << f << std::endl;
         }
         double temperature = parsedData[0];
+        double outsideTemperature = parsedData[1];
+        double humidityInside = parsedData[2];
+        double humidityOutside = parsedData[3];
+        double light = parsedData[4];
         emit temperatureChanged(temperature);
+        emit temperatureOutsideChanged(outsideTemperature);
+        emit humidityInsideChanged(humidityInside);
+        emit humidityOutsideChanged(humidityOutside);
+        emit lightChanged(light);
     }
 }
 

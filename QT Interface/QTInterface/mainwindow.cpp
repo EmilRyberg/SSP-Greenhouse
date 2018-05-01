@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     connect(serialPortReader, &SerialPortReader::temperatureChanged, this, &MainWindow::updateTemperature);
+    connect(serialPortReader, &SerialPortReader::temperatureOutsideChanged, this, &MainWindow::updateTemperatureOutside);
+    connect(serialPortReader, &SerialPortReader::humidityInsideChanged, this, &MainWindow::updateHumidityInside);
+    connect(serialPortReader, &SerialPortReader::humidityOutsideChanged, this, &MainWindow::updateHumidityOutside);
+    connect(serialPortReader, &SerialPortReader::lightChanged, this, &MainWindow::updateLight);
 }
 
 MainWindow::~MainWindow()
@@ -34,4 +38,24 @@ MainWindow::~MainWindow()
 void MainWindow::updateTemperature(double value)
 {
     ui->temperatureNumber->display(value);
+}
+
+void MainWindow::updateTemperatureOutside(double value)
+{
+    ui->temperatureOutsideNumber->display(value);
+}
+
+void MainWindow::updateHumidityInside(double value)
+{
+    ui->humidityInsideNumber->display(value);
+}
+
+void MainWindow::updateHumidityOutside(double value)
+{
+    ui->humidityOutsideNumber->display(value);
+}
+
+void MainWindow::updateLight(double value)
+{
+    ui->lightNumber->display(value);
 }

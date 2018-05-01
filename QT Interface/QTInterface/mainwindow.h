@@ -18,6 +18,10 @@ public:
 
 public slots:
     void updateTemperature(double value);
+    void updateTemperatureOutside(double value);
+    void updateHumidityInside(double value);
+    void updateHumidityOutside(double value);
+    void updateLight(double value);
 
 private:
     Ui::MainWindow *ui;

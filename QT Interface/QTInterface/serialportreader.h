@@ -25,6 +25,10 @@ private slots:
 
 signals:
     void temperatureChanged(double value);
+    void temperatureOutsideChanged(double value);
+    void humidityInsideChanged(double value);
+    void humidityOutsideChanged(double value);
+    void lightChanged(double value);
 
 private:
     QSerialPort *serialPort = (QSerialPort *)0;
