@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "serialportreader.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,8 +16,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void updateTemperature(double value);
+
 private:
     Ui::MainWindow *ui;
+    SerialPortReader *serialPortReader;
 };
 
 #endif // MAINWINDOW_H

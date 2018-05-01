@@ -67,4 +67,7 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <slots>
+  <slot>clicked()</slot>
+ </slots>
 </ui>

@@ -10,24 +10,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    serialPortReader = new SerialPortReader();
 
     QTextStream standardOutput(stdout);
-    QSerialPort serialPort;
     const QString serialPortName = "COM7";
-
-    serialPort.setPortName(serialPortName);
-    serialPort.setBaudRate(115200);
-    if (!serialPort.open(QIODevice::ReadOnly)) {
+    int baudRate = 115200;
+    if (!serialPortReader->AttachToSerial(serialPortName, baudRate)) {
         standardOutput << QObject::tr("Failed to open port %1, error: %2")
                           .arg(serialPortName)
-                          .arg(serialPort.errorString())
+                          .arg(serialPortReader->GetLatestError())
                        << endl;
     }
 
-    SerialPortReader serialPortReader(&serialPort, ui);
+    connect(serialPortReader, &SerialPortReader::temperatureChanged, this, &MainWindow::updateTemperature);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete serialPortReader;
+}
+
+void MainWindow::updateTemperature(double value)
+{
+    ui->temperatureNumber->display(value);
 }

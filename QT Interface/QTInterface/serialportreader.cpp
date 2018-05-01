@@ -1,6 +1,4 @@
 #include "serialportreader.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include <iomanip>      // std::setprecision
 #include <QCoreApplication>
 #include <stdlib.h>     /* atof */
@@ -8,20 +6,41 @@
 #include <stdio.h>
 #include <vector>
 
-SerialPortReader::SerialPortReader(QSerialPort *serialPort, Ui::MainWindow *ui ,QObject *parent) :
+SerialPortReader::SerialPortReader(QObject *parent) :
     QObject(parent),
-    m_serialPort(serialPort),
+    serialPort(new QSerialPort()),
     m_standardOutput(stdout)
 {
-    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortReader::handleReadyRead);
-    this->ui = ui;
 }
 
+SerialPortReader::~SerialPortReader()
+{
+    delete serialPort;
+}
 
+bool SerialPortReader::AttachToSerial(QString name, int baudRate)
+{
+    serialPort->setPortName(name);
+    serialPort->setBaudRate(baudRate);
+
+    if (!serialPort->open(QIODevice::ReadOnly)) {
+        latestError = serialPort->errorString();
+        return false;
+    }
+
+
+    connect(serialPort, &QSerialPort::readyRead, this, &SerialPortReader::handleReadyRead);
+    return true;
+}
+
+QString SerialPortReader::GetLatestError() const
+{
+    return latestError;
+}
 
 void SerialPortReader::handleReadyRead()
 {
-    m_readData.append(m_serialPort->readAll());
+    m_readData.append(serialPort->readAll());
     std::vector<double> parsedData = dataParser.parseData(&m_readData);
 
     if (!parsedData.empty())
@@ -31,7 +50,7 @@ void SerialPortReader::handleReadyRead()
             std::cout << f << std::endl;
         }
         double temperature = parsedData[0];
-        ui->temperatureNumber->display(temperature);
+        emit temperatureChanged(temperature);
     }
 }
 

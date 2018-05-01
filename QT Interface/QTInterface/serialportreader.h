@@ -8,7 +8,6 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QMainWindow>
-#include "mainwindow.h"
 #include "dataparser.h"
 
 class SerialPortReader : public QObject
@@ -16,17 +15,23 @@ class SerialPortReader : public QObject
     Q_OBJECT
 
 public:
-    explicit SerialPortReader(QSerialPort *serialPort, Ui::MainWindow *ui, QObject *parent = (QObject *)0);
+    explicit SerialPortReader(QObject *parent = (QObject *)0);
+    bool AttachToSerial(QString name, int baudRate);
+    QString GetLatestError() const;
+    ~SerialPortReader();
 
 private slots:
     void handleReadyRead();
 
+signals:
+    void temperatureChanged(double value);
+
 private:
-    QSerialPort *m_serialPort = (QSerialPort *)0;
+    QSerialPort *serialPort = (QSerialPort *)0;
     QByteArray m_readData;
     QTextStream m_standardOutput;
-    Ui::MainWindow *ui;
     DataParser dataParser;
+    QString latestError;
 };
 
 #endif // SERIALPORTREADER_H
