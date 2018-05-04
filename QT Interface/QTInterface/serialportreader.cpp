@@ -62,4 +62,15 @@ void SerialPortReader::handleReadyRead()
     }
 }
 
+void SerialPortReader::sendData(int pin, char method, int value)
+{
+    std::string command = "{" + pin;
+    command += ",";
+    command += method;
+    command += ",";
+    command += value;
+    command += "}";
+    serialPort->write(command.c_str());
+}
+
 
