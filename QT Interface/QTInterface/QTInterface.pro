@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         serialportreader.cpp \
         mainwindow.cpp \
-        dataparser.cpp
+        dataparser.cpp \
+    controller.cpp
 
 HEADERS += \
         serialportreader.h \
         mainwindow.h \
-        dataparser.h
+        dataparser.h \
+    controller.h
 
 FORMS += \
         mainwindow.ui
