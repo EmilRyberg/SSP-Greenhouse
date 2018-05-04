@@ -4,16 +4,26 @@
 #include <QByteArray>
 #include <QTextStream>
 #include <vector>
+#include <serialportreader.h>
+#include <time.h>
+#include <stdio.h>
 
-class sensor{
+class Sensor: public QObject
+{
+    Q_OBJECT
+
     public:
-        double time;
-        std::vector<double> data;
+        explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = (QObject *)0);
+        time_t Time();
+        double GetAverage(std::vector<double> data);
+
+    public slots:
+        void NewData(std::vector<double> data);
 
     private:
-        double getAverage(getAverage){
-
-        };
+        SerialPortReader *serial;
+        int sensorType;
+        std::vector<double> buffer;
 };
 
 #endif // SENSOR_H
