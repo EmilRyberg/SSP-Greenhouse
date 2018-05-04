@@ -71,6 +71,7 @@ void SerialPortReader::sendData(int pin, char method, int value)
     command += value;
     command += "}";
     serialPort->write(command.c_str());
+    std::cout << "sent " << command << std::endl;
 }
 
 
