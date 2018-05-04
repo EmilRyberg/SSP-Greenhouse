@@ -42,7 +42,6 @@ void SerialPortReader::handleReadyRead()
 {
     m_readData.append(serialPort->readAll());
     std::vector<double> parsedData = dataParser.parseData(&m_readData);
-
     if (!parsedData.empty())
     {
         for(double f : parsedData)
@@ -54,14 +53,17 @@ void SerialPortReader::handleReadyRead()
         double humidityInside = parsedData[2];
         double humidityOutside = parsedData[3];
         double light = parsedData[4];
+        std::vector<double> sensorData = parsedData;
         emit temperatureChanged(temperature);
         emit temperatureOutsideChanged(outsideTemperature);
         emit humidityInsideChanged(humidityInside);
         emit humidityOutsideChanged(humidityOutside);
         emit lightChanged(light);
+
+        emit dataChanged(sensorData); //new general datavector
     }
 }
-
+    
 void SerialPortReader::sendData(int pin, char method, int value)
 {
     std::string command = "{" + pin;

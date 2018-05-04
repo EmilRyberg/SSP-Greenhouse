@@ -19,7 +19,6 @@ public:
     bool AttachToSerial(QString name, int baudRate);
     QString GetLatestError() const;
     ~SerialPortReader();
-    void sendData(int pin, char method, int value);
 
 private slots:
     void handleReadyRead();
@@ -30,6 +29,7 @@ signals:
     void humidityInsideChanged(double value);
     void humidityOutsideChanged(double value);
     void lightChanged(double value);
+    void dataChanged(std::vector<double> value);
 
 private:
     QSerialPort *serialPort = (QSerialPort *)0;
