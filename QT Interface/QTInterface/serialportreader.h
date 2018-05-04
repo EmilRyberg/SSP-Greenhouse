@@ -19,6 +19,7 @@ public:
     bool AttachToSerial(QString name, int baudRate);
     QString GetLatestError() const;
     ~SerialPortReader();
+    void SendData(int pin, char method, int value);
 
 private slots:
     void handleReadyRead();
