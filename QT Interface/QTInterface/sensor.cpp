@@ -6,7 +6,7 @@
 #include <numeric>
 #include <ctime>
 
-Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = nullptr)
+Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent)
     : QObject(parent),
     serial(serialPortReader),
     sensorType(sensorType)
@@ -14,9 +14,9 @@ Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *pare
     connect(serial, &SerialPortReader::dataChanged, this, &Sensor::NewData);
 }
 
-double Sensor::GetAverage(std::vector<double> Data)
+double Sensor::GetAverage()
 {
-    double averageData = std::accumulate(Data.begin(), Data.end(), 0);
+    double averageData = std::accumulate(buffer.begin(), buffer.end(), 0);
     buffer.clear();
     return averageData;
 }

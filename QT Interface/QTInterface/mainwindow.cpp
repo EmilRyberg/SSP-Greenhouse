@@ -1,13 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "serialportreader.h"
+#include "controller.h"
 #include <QSerialPort>
 #include <QStringList>
 #include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    controller(new Controller)
 {
     ui->setupUi(this);
 }
@@ -16,6 +18,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete serialPortReader;
+    delete controller;
 }
 
 void MainWindow::updateTemperature(double value)

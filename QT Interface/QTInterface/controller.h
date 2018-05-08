@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "serialportreader.h"
+#include "sensor.h"
 
 class Controller : public QObject
 {
@@ -26,7 +27,8 @@ signals:
     void updateLight(int value);
 
 public slots:
-    void setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
+    void update();
+    //void setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
 
 private:
     const int fanPin = 2;
@@ -47,6 +49,10 @@ private:
     int light;
 
     SerialPortReader *serialReader = nullptr;
+
+    Sensor *sensor;
+
+    QTimer *timer;
 
     void doLogic();
 };

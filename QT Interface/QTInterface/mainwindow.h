@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "serialportreader.h"
+#include "controller.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     SerialPortReader *serialPortReader;
+    Controller *controller;
 };
 
 #endif // MAINWINDOW_H

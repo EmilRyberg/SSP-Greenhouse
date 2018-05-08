@@ -1,5 +1,7 @@
 #include "controller.h"
 #include "serialportreader.h"
+#include "stdlib.h"
+#include "iostream"
 
 Controller::Controller(QObject *parent)
     : QObject(parent)
@@ -21,8 +23,17 @@ Controller::Controller(QObject *parent)
                           .arg(serialReader->GetLatestError())
                        << endl;
     }
+    sensor = new Sensor(serialReader, 1, parent);
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Controller::update);
+    timer->start(3000);
 
-    connect(serialReader, &SerialPortReader::sensorsChanged, this, &Controller::setSensorValues);
+    //connect(serialReader, &SerialPortReader::sensorsChanged, this, &Controller::setSensorValues);
+}
+
+void Controller::update()
+{
+    std::cout << "timer fired" << std::endl;
 }
 
 void Controller::fanOn()
@@ -60,13 +71,13 @@ void Controller::heatOff()
     serialReader->SendData(heatPin,'d',0);
 }
 
-void Controller::setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light){
+/*void Controller::setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light){
     this->temperature = temperature;
     this->temperatureOutside = temperatureOutside;
     this->humidity = humidity;
     this->humidityOutside = humidityOutside;
     this->light = light;
-}
+}*/
 
 void Controller::doLogic()
 {
