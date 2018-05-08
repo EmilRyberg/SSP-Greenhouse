@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete serialPortReader;
     delete controller;
 }
 
