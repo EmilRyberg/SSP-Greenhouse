@@ -18,11 +18,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void updateTemperature(double value);
-    void updateTemperatureOutside(double value);
-    void updateHumidityInside(double value);
-    void updateHumidityOutside(double value);
-    void updateLight(double value);
+    void updateValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
 
 private:
     Ui::MainWindow *ui;

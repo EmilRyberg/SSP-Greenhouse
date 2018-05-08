@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     controller(new Controller)
 {
     ui->setupUi(this);
+    connect(controller, &Controller::updateUiValues, this, &MainWindow::updateValues);
 }
 
 MainWindow::~MainWindow()
@@ -21,27 +22,11 @@ MainWindow::~MainWindow()
     delete controller;
 }
 
-void MainWindow::updateTemperature(double value)
+void MainWindow::updateValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light)
 {
-    ui->temperatureNumber->display(value);
-}
-
-void MainWindow::updateTemperatureOutside(double value)
-{
-    ui->temperatureOutsideNumber->display(value);
-}
-
-void MainWindow::updateHumidityInside(double value)
-{
-    ui->humidityInsideNumber->display(value);
-}
-
-void MainWindow::updateHumidityOutside(double value)
-{
-    ui->humidityOutsideNumber->display(value);
-}
-
-void MainWindow::updateLight(double value)
-{
-    ui->lightNumber->display(value);
+    ui->temperatureNumber->display(temperature);
+    ui->temperatureOutsideNumber->display(temperatureOutside);
+    ui->humidityInsideNumber->display(humidity);
+    ui->humidityOutsideNumber->display(humidityOutside);
+    ui->lightNumber->display(light);
 }
