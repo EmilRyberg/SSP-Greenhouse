@@ -16,7 +16,7 @@ Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *pare
 
 double Sensor::GetAverage()
 {
-    double averageData = std::accumulate(buffer.begin(), buffer.end(), 0);
+    double averageData = std::accumulate(buffer.begin(), buffer.end(), 0) / buffer.size();
     buffer.clear();
     return averageData;
 }
