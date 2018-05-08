@@ -28,7 +28,6 @@ signals:
 
 public slots:
     void update();
-    //void setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
 
 private:
     const int fanPin = 2;
@@ -42,15 +41,19 @@ private:
     float humidityMin, humidityMax;
     int lightMin, lightMax;
 
-    float temperature;
-    float temperatureOutside;
-    float humidity;
-    float humidityOutside;
-    int light;
+    double temperature;
+    double temperatureOutside;
+    double humidity;
+    double humidityOutside;
+    double light;
 
     SerialPortReader *serialReader = nullptr;
 
-    Sensor *sensor;
+    Sensor *temperatureSensor;
+    Sensor *temperatureOutsideSensor;
+    Sensor *humiditySensor;
+    Sensor *humidityOutsideSensor;
+    Sensor *lightSensor;
 
     QTimer *timer;
 

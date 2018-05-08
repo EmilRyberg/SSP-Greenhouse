@@ -1,7 +1,9 @@
 #include "controller.h"
 #include "serialportreader.h"
 #include "stdlib.h"
+#include "string"
 #include "iostream"
+#include "fstream"
 
 Controller::Controller(QObject *parent)
     : QObject(parent)
@@ -14,8 +16,19 @@ Controller::Controller(QObject *parent)
     lightMax = 60;
     serialReader = new SerialPortReader();
 
+    std::string line;
+    std::fstream configFile;
+    configFile.open("../QTInterface/config.txt");
+    if (configFile.is_open()){
+        std::getline(configFile,line);
+        configFile.close();
+    } else {
+        std::cout << "Error opening config.txt file!" << std::endl;
+        abort();
+    }
+
+    QString serialPortName = QString::fromStdString(line);
     QTextStream standardOutput(stdout);
-    const QString serialPortName = "COM3";
     int baudRate = 115200;
     if (!serialReader->AttachToSerial(serialPortName, baudRate)) {
         standardOutput << QObject::tr("Failed to open port %1, error: %2")
@@ -23,17 +36,25 @@ Controller::Controller(QObject *parent)
                           .arg(serialReader->GetLatestError())
                        << endl;
     }
-    sensor = new Sensor(serialReader, 1, parent);
+    temperatureSensor = new Sensor(serialReader, 0, parent);
+    temperatureOutsideSensor = new Sensor(serialReader, 1, parent);
+    humiditySensor = new Sensor(serialReader, 2, parent);
+    humidityOutsideSensor = new Sensor(serialReader, 3, parent);
+    lightSensor = new Sensor(serialReader, 4, parent);
+
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Controller::update);
-    timer->start(3000);
-
-    //connect(serialReader, &SerialPortReader::sensorsChanged, this, &Controller::setSensorValues);
+    timer->start(10000);
 }
 
 void Controller::update()
 {
     std::cout << "timer fired" << std::endl;
+    temperature = temperatureSensor->GetAverage();
+    temperatureOutside = temperatureOutsideSensor->GetAverage();
+    humidity = humiditySensor->GetAverage();
+    humidityOutside = humidityOutsideSensor->GetAverage();
+    light = lightSensor->GetAverage();
 }
 
 void Controller::fanOn()
@@ -70,14 +91,6 @@ void Controller::heatOff()
 {
     serialReader->SendData(heatPin,'d',0);
 }
-
-/*void Controller::setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light){
-    this->temperature = temperature;
-    this->temperatureOutside = temperatureOutside;
-    this->humidity = humidity;
-    this->humidityOutside = humidityOutside;
-    this->light = light;
-}*/
 
 void Controller::doLogic()
 {
