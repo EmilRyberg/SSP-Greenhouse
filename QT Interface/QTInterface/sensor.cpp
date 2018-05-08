@@ -4,6 +4,7 @@
 #include <stdlib.h>     /* atof */
 #include <iostream>
 #include <numeric>
+#include <ctime>
 
 Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = nullptr)
     : QObject(parent),
@@ -19,6 +20,14 @@ double Sensor::GetAverage(std::vector<double> Data)
     buffer.clear();
     return averageData;
 }
+
+tm* CurrentTime()
+{
+    time_t t = time(NULL);
+    tm* timePtr = localtime(&t);
+
+    return timePtr;
+};
 
 void Sensor::NewData(std::vector<double> data)
 {
