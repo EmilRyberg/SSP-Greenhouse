@@ -21,6 +21,14 @@ double Sensor::GetAverage(std::vector<double> Data)
     return averageData;
 }
 
+tm* CurrentTime()
+{
+    time_t t = time(NULL);
+    tm* timePtr = localtime(&t);
+
+    return timePtr;
+};
+
 void Sensor::NewData(std::vector<double> data)
 {
     buffer.push_back(data[sensorType]);
