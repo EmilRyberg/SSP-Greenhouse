@@ -10,23 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    serialPortReader = new SerialPortReader();
-
-    QTextStream standardOutput(stdout);
-    const QString serialPortName = "COM3";
-    int baudRate = 115200;
-    if (!serialPortReader->AttachToSerial(serialPortName, baudRate)) {
-        standardOutput << QObject::tr("Failed to open port %1, error: %2")
-                          .arg(serialPortName)
-                          .arg(serialPortReader->GetLatestError())
-                       << endl;
-    }
-
-    connect(serialPortReader, &SerialPortReader::temperatureChanged, this, &MainWindow::updateTemperature);
-    connect(serialPortReader, &SerialPortReader::temperatureOutsideChanged, this, &MainWindow::updateTemperatureOutside);
-    connect(serialPortReader, &SerialPortReader::humidityInsideChanged, this, &MainWindow::updateHumidityInside);
-    connect(serialPortReader, &SerialPortReader::humidityOutsideChanged, this, &MainWindow::updateHumidityOutside);
-    connect(serialPortReader, &SerialPortReader::lightChanged, this, &MainWindow::updateLight);
 }
 
 MainWindow::~MainWindow()

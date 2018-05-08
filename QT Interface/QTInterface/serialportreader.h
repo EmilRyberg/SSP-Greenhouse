@@ -25,11 +25,7 @@ private slots:
     void handleReadyRead();
 
 signals:
-    void temperatureChanged(double value);
-    void temperatureOutsideChanged(double value);
-    void humidityInsideChanged(double value);
-    void humidityOutsideChanged(double value);
-    void lightChanged(double value);
+    void sensorsChanged(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
     void dataChanged(std::vector<double> value);
 
 private:

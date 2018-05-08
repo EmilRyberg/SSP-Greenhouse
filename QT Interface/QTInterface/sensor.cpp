@@ -5,7 +5,7 @@
 #include <iostream>
 #include <numeric>
 
-Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent)
+Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = nullptr)
     : QObject(parent),
     serial(serialPortReader),
     sensorType(sensorType)

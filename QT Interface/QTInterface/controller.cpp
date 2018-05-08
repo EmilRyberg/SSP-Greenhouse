@@ -1,7 +1,7 @@
 #include "controller.h"
 #include "serialportreader.h"
 
-Controller::Controller(SerialPortReader &serialPortReader, QObject *parent)
+Controller::Controller(QObject *parent)
     : QObject(parent)
 {
     temperatureMin = 22;
@@ -10,7 +10,19 @@ Controller::Controller(SerialPortReader &serialPortReader, QObject *parent)
     humidityMax = 60;
     lightMin = 40;
     lightMax = 60;
-    serialReader = &serialPortReader;
+    serialReader = new SerialPortReader();
+
+    QTextStream standardOutput(stdout);
+    const QString serialPortName = "COM3";
+    int baudRate = 115200;
+    if (!serialReader->AttachToSerial(serialPortName, baudRate)) {
+        standardOutput << QObject::tr("Failed to open port %1, error: %2")
+                          .arg(serialPortName)
+                          .arg(serialReader->GetLatestError())
+                       << endl;
+    }
+
+    connect(serialReader, &SerialPortReader::sensorsChanged, this, &Controller::setSensorValues);
 }
 
 void Controller::fanOn()
@@ -48,20 +60,12 @@ void Controller::heatOff()
     serialReader->SendData(heatPin,'d',0);
 }
 
-void Controller::getTemperature(int value){
-    temperature = value;
-}
-void Controller::getTemperatureOutside(int value){
-    temperatureOutside = value;
-}
-void Controller::getHumidity(int value){
-    humidity = value;
-}
-void Controller::getHumidityOutside(int value){
-    humidityOutside = value;
-}
-void Controller::getLight(int value){
-    light = value;
+void Controller::setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light){
+    this->temperature = temperature;
+    this->temperatureOutside = temperatureOutside;
+    this->humidity = humidity;
+    this->humidityOutside = humidityOutside;
+    this->light = light;
 }
 
 void Controller::doLogic()

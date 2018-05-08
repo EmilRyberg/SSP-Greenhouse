@@ -13,7 +13,7 @@ class Sensor: public QObject
     Q_OBJECT
 
     public:
-        explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = (QObject *)0);
+        explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = nullptr);
         time_t Time();
         double GetAverage(std::vector<double> data);
 

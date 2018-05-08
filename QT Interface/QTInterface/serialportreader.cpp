@@ -54,11 +54,7 @@ void SerialPortReader::handleReadyRead()
         double humidityOutside = parsedData[3];
         double light = parsedData[4];
         std::vector<double> sensorData = parsedData;
-        emit temperatureChanged(temperature);
-        emit temperatureOutsideChanged(outsideTemperature);
-        emit humidityInsideChanged(humidityInside);
-        emit humidityOutsideChanged(humidityOutside);
-        emit lightChanged(light);
+        emit sensorsChanged(temperature, outsideTemperature, humidityInside, humidityOutside, light);
 
         emit dataChanged(sensorData); //new general datavector
     }

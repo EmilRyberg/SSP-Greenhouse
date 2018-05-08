@@ -8,7 +8,7 @@ class Controller : public QObject
 {
     Q_OBJECT
 public:
-    explicit Controller(SerialPortReader &serialPortReader, QObject *parent = nullptr);
+    explicit Controller(QObject *parent = nullptr);
     void fanOn();
     void fanOff();
     void lightOn();
@@ -26,11 +26,7 @@ signals:
     void updateLight(int value);
 
 public slots:
-    void getTemperature(int value);
-    void getTemperatureOutside(int value);
-    void getHumidity(int value);
-    void getHumidityOutside(int value);
-    void getLight(int value);
+    void setSensorValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
 
 private:
     const int fanPin = 2;
