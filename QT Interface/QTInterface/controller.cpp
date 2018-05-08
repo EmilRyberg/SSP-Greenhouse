@@ -23,8 +23,8 @@ Controller::Controller(QObject *parent)
         std::getline(configFile,line);
         configFile.close();
     } else {
-        std::cout << "Error opening config.txt file!" << std::endl;
-        abort();
+        std::cout << "WARNING: Error opening config.txt file! Using COM3 as fallback." << std::endl;
+        line = "COM3";
     }
 
     QString serialPortName = QString::fromStdString(line);
@@ -55,6 +55,10 @@ void Controller::update()
     humidity = humiditySensor->GetAverage();
     humidityOutside = humidityOutsideSensor->GetAverage();
     light = lightSensor->GetAverage();
+
+    emit updateUiValues(temperature, temperatureOutside, humidity, humidityOutside, light);
+
+    doLogic();
 }
 
 void Controller::fanOn()

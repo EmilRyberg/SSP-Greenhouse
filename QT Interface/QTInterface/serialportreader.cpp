@@ -5,12 +5,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include "QTimer"
 
 SerialPortReader::SerialPortReader(QObject *parent) :
     QObject(parent),
     serialPort(new QSerialPort()),
     m_standardOutput(stdout)
 {
+    srand(123456);
 }
 
 SerialPortReader::~SerialPortReader()
@@ -25,6 +27,11 @@ bool SerialPortReader::AttachToSerial(QString name, int baudRate)
 
     if (!serialPort->open(QIODevice::ReadOnly)) {
         latestError = serialPort->errorString();
+
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &SerialPortReader::emulateSerialData);
+        timer->start(2000);
+
         return false;
     }
 
@@ -57,6 +64,18 @@ void SerialPortReader::handleReadyRead()
 
         emit dataChanged(sensorData); //new general datavector
     }
+}
+
+void SerialPortReader::emulateSerialData()
+{
+    std::cout << "fake data emitted" << std::endl;
+    std::vector<double> fakeSensorData(5);
+    fakeSensorData[0] = rand() % 10 + 25;
+    fakeSensorData[1] = rand() % 10 + 15;
+    fakeSensorData[2] = rand() % 20 + 60;
+    fakeSensorData[3] = rand() % 20 + 40;
+    fakeSensorData[4] = rand() % 80 + 10;
+    emit dataChanged(fakeSensorData);
 }
     
 void SerialPortReader::SendData(int pin, char method, int value)

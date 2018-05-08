@@ -20,11 +20,7 @@ public:
     void heatOff();
 
 signals:
-    void updateTemperature(int value);
-    void updateTemperatureOutside(int value);
-    void updateHumidity(int value);
-    void updateHumidityOutside(int value);
-    void updateLight(int value);
+    void updateUiValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
 
 public slots:
     void update();

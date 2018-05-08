@@ -21,6 +21,9 @@ public:
     ~SerialPortReader();
     void SendData(int pin, char method, int value);
 
+public slots:
+    void emulateSerialData();
+
 private slots:
     void handleReadyRead();
 
