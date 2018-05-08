@@ -13,21 +13,9 @@ Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *pare
     connect(serial, &SerialPortReader::dataChanged, this, &Sensor::NewData);
 }
 
-time_t Time()
-{
-    time_t rawtime;
-      struct tm * timeinfo;
-
-      time (&rawtime);
-      timeinfo = localtime (&rawtime);
-      return asctime(timeinfo)
-};
-
-
-
 double Sensor::GetAverage(std::vector<double> Data)
 {
-    double averageData = accumulate(Data.begin(), Data.end(), 0.0/Data.size);
+    double averageData = std::accumulate(Data.begin(), Data.end(), 0);
     buffer.clear();
     return averageData;
 }

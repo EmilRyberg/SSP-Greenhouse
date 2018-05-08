@@ -1,7 +1,8 @@
 #include "controller.h"
 #include "serialportreader.h"
 
-Controller::Controller(QObject *parent) : QObject(parent)
+Controller::Controller(SerialPortReader &serialPortReader, QObject *parent)
+    : QObject(parent)
 {
     temperatureMin = 22;
     temperatureMax = 25;
@@ -9,52 +10,61 @@ Controller::Controller(QObject *parent) : QObject(parent)
     humidityMax = 60;
     lightMin = 40;
     lightMax = 60;
+    serialReader = &serialPortReader;
 }
 
-Controller::fanOn(){
-    SerialPortReader::sendData(fanPin,'d',1);
+void Controller::fanOn()
+{
+    serialReader->SendData(fanPin,'d',1);
 }
-Controller::fanOff(){
-    SerialPortReader::sendData(fanPin,'d',0);
+void Controller::fanOff()
+{
+    serialReader->SendData(fanPin,'d',0);
 }
-Controller::lightOn(){
-    SerialPortReader::sendData(lightPinG,'d',1);
-    SerialPortReader::sendData(lightPinB,'d',1);
+void Controller::lightOn()
+{
+    serialReader->SendData(lightPinG,'d',1);
+    serialReader->SendData(lightPinB,'d',1);
 }
-Controller::lightOff(){
-    SerialPortReader::sendData(lightPinG,'d',0);
-    SerialPortReader::sendData(lightPinB,'d',0);
+void Controller::lightOff()
+{
+    serialReader->SendData(lightPinG,'d',0);
+    serialReader->SendData(lightPinB,'d',0);
 }
-Controller::waterOn(){
-    SerialPortReader::sendData(waterPin,'d',1);
+void Controller::waterOn()
+{
+    serialReader->SendData(waterPin,'d',1);
 }
-Controller::waterOff(){
-    SerialPortReader::sendData(waterPin,'d',0);
+void Controller::waterOff()
+{
+    serialReader->SendData(waterPin,'d',0);
 }
-Controller::heatOn(){
-    SerialPortReader::sendData(heatPin,'d',1);
+void Controller::heatOn()
+{
+    serialReader->SendData(heatPin,'d',1);
 }
-Controller::heatOff(){
-    SerialPortReader::sendData(heatPin,'d',0);
+void Controller::heatOff()
+{
+    serialReader->SendData(heatPin,'d',0);
 }
 
-Controller::getTemperature(int value){
+void Controller::getTemperature(int value){
     temperature = value;
 }
-Controller::getTemperatureOutside(int value){
+void Controller::getTemperatureOutside(int value){
     temperatureOutside = value;
 }
-Controller::getHumidity(int value){
+void Controller::getHumidity(int value){
     humidity = value;
 }
-Controller::getHumidityOutside(int value){
+void Controller::getHumidityOutside(int value){
     humidityOutside = value;
 }
-Controller::getLight(int value){
+void Controller::getLight(int value){
     light = value;
 }
 
-Controller::doLogic()
+void Controller::doLogic()
 {
     if(temperature < temperatureMin){
         if(temperatureOutside>temperature){

@@ -2,12 +2,13 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include "serialportreader.h"
 
 class Controller : public QObject
 {
     Q_OBJECT
 public:
-    explicit Controller(QObject *parent = nullptr);
+    explicit Controller(SerialPortReader &serialPortReader, QObject *parent = nullptr);
     void fanOn();
     void fanOff();
     void lightOn();
@@ -48,6 +49,10 @@ private:
     float humidity;
     float humidityOutside;
     int light;
+
+    SerialPortReader *serialReader = nullptr;
+
+    void doLogic();
 };
 
 #endif // CONTROLLER_H
