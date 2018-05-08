@@ -1,7 +1,7 @@
 #include "controller.h"
 #include "serialportreader.h"
 
-Controller::controller(QObject *parent) : QObject(parent)
+Controller::Controller(QObject *parent) : QObject(parent)
 {
     temperatureMin = 22;
     temperatureMax = 25;

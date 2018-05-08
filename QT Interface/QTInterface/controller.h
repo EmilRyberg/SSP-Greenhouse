@@ -7,7 +7,7 @@ class Controller : public QObject
 {
     Q_OBJECT
 public:
-    explicit controller(QObject *parent = nullptr);
+    explicit Controller(QObject *parent = nullptr);
     void fanOn();
     void fanOff();
     void lightOn();
