@@ -25,7 +25,8 @@ bool SerialPortReader::AttachToSerial(QString name, int baudRate)
     serialPort->setPortName(name);
     serialPort->setBaudRate(baudRate);
 
-    if (!serialPort->open(QIODevice::ReadOnly)) {
+    if (!serialPort->open(QIODevice::ReadOnly))
+    {
         latestError = serialPort->errorString();
 
         QTimer *timer = new QTimer(this);
@@ -55,11 +56,6 @@ void SerialPortReader::handleReadyRead()
         {
             std::cout << f << std::endl;
         }
-        double temperature = parsedData[0];
-        double outsideTemperature = parsedData[1];
-        double humidityInside = parsedData[2];
-        double humidityOutside = parsedData[3];
-        double light = parsedData[4];
         std::vector<double> sensorData = parsedData;
 
         emit dataChanged(sensorData); //new general datavector

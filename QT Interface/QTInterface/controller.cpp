@@ -19,10 +19,13 @@ Controller::Controller(QObject *parent)
     std::string line;
     std::fstream configFile;
     configFile.open("../QTInterface/config.txt");
-    if (configFile.is_open()){
+    if (configFile.is_open())
+    {
         std::getline(configFile,line);
         configFile.close();
-    } else {
+    }
+    else
+    {
         std::cout << "WARNING: Error opening config.txt file! Using COM3 as fallback." << std::endl;
         line = "COM3";
     }
@@ -30,7 +33,8 @@ Controller::Controller(QObject *parent)
     QString serialPortName = QString::fromStdString(line);
     QTextStream standardOutput(stdout);
     int baudRate = 115200;
-    if (!serialReader->AttachToSerial(serialPortName, baudRate)) {
+    if (!serialReader->AttachToSerial(serialPortName, baudRate))
+    {
         standardOutput << QObject::tr("Failed to open port %1, error: %2")
                           .arg(serialPortName)
                           .arg(serialReader->GetLatestError())
@@ -98,28 +102,42 @@ void Controller::heatOff()
 
 void Controller::doLogic()
 {
-    if(temperature < temperatureMin){
-        if(temperatureOutside>temperature){
+    if(temperature < temperatureMin)
+    {
+        if(temperatureOutside>temperature)
+        {
             fanOn(); //using hotter outside air
             heatOff();
-        } else {
+        }
+        else
+        {
             heatOn(); //using heater
             fanOff();
         }
-    } else if(temperature > temperatureMax){
-        if(temperatureOutside < temperature){
+    }
+    else if(temperature > temperatureMax)
+    {
+        if(temperatureOutside < temperature)
+        {
             fanOn(); //using cooler outside air
-        } else {
+        }
+        else
+        {
             fanOff(); //no way to cool down
         }
-    } else {
+    }
+    else
+    {
         heatOff(); //in range, shutting devices down
         fanOff();
     }
 
-    if(light < lightMin){
+    if(light < lightMin)
+    {
         lightOn();
-    } else if (light > lightMax) {
+    }
+    else if (light > lightMax)
+    {
         lightOff();
     }
 }

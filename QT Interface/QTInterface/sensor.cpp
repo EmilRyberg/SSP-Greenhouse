@@ -27,7 +27,7 @@ tm* CurrentTime()
     tm* timePtr = localtime(&t);
 
     return timePtr;
-};
+}
 
 void Sensor::NewData(std::vector<double> data)
 {
