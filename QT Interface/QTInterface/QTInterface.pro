@@ -6,7 +6,7 @@
 
 QT       += core gui serialport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = QTInterface
 TEMPLATE = app
@@ -29,14 +29,16 @@ SOURCES += \
         mainwindow.cpp \
         dataparser.cpp \
         controller.cpp \
-        sensor.cpp
+        sensor.cpp \
+        qcustomplot.cpp
 
 HEADERS += \
         serialportreader.h \
         mainwindow.h \
         dataparser.h \
         controller.h \
-        sensor.h
+        sensor.h \
+        qcustomplot.h
 
 FORMS += \
         mainwindow.ui
