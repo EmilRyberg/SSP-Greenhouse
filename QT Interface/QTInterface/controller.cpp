@@ -14,6 +14,7 @@ Controller::Controller(QObject *parent)
     humidityMax = 60;
     lightMin = 40;
     lightMax = 60;
+    time = 0;
     serialReader = new SerialPortReader();
 
     std::string line;
@@ -53,6 +54,7 @@ Controller::Controller(QObject *parent)
 
 void Controller::update()
 {
+    time += 10; // seconds
     std::cout << "timer fired" << std::endl;
     temperature = temperatureSensor->GetAverage();
     temperatureOutside = temperatureOutsideSensor->GetAverage();
@@ -61,6 +63,7 @@ void Controller::update()
     light = lightSensor->GetAverage();
 
     emit updateUiValues(temperature, temperatureOutside, humidity, humidityOutside, light);
+    emit updateTemperatureGraph(temperature, temperatureOutside, time);
 
     doLogic();
 }

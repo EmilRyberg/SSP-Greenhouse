@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "serialportreader.h"
 #include "controller.h"
+#include "chart.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,11 +20,13 @@ public:
 
 public slots:
     void updateValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
+    void updateTemperatureGraph(double temperature, double temperatureOutside, int seconds);
 
 private:
     Ui::MainWindow *ui;
     SerialPortReader *serialPortReader;
     Controller *controller;
+    Chart *chart;
 };
 
 #endif // MAINWINDOW_H

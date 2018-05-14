@@ -21,6 +21,7 @@ public:
 
 signals:
     void updateUiValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
+    void updateTemperatureGraph(double temperature, double temperatureOutside, int seconds);
 
 public slots:
     void update();
@@ -42,6 +43,8 @@ private:
     double humidity;
     double humidityOutside;
     double light;
+
+    int time;
 
     SerialPortReader *serialReader = nullptr;
 
