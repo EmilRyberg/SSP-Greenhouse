@@ -37,8 +37,7 @@ HEADERS += \
         mainwindow.h \
         dataparser.h \
         controller.h \
-        sensor.h \
-        qcustomplot.h
+        sensor.h
 
 FORMS += \
         mainwindow.ui
