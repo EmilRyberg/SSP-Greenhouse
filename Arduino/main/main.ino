@@ -60,7 +60,7 @@ void loop() {
         Serial.println(eventOutside.relative_humidity);
     }
 
-    light = constrain(map(analogRead(LIGHTPIN), 500, 1023, 0, 100), 0, 100);
+    light = analogRead(LIGHTPIN);
     Serial.print("Light: ");
     Serial.println(light);
 
