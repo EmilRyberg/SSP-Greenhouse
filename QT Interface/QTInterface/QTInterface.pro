@@ -39,11 +39,7 @@ HEADERS += \
         dataparser.h \
         controller.h \
         sensor.h \
-        qcustomplot.h \
-    sensorlight.h
-=======
-        sensor.h
->>>>>>> 4935439ebd25bae143c1ac8f2ed21abf6812f59b
+		sensorlight.h
 
 FORMS += \
         mainwindow.ui
