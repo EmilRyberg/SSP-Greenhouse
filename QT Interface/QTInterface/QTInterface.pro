@@ -30,8 +30,7 @@ SOURCES += \
         dataparser.cpp \
         controller.cpp \
         sensor.cpp \
-        qcustomplot.cpp \
-    sensorlight.cpp
+        sensorlight.cpp
 
 HEADERS += \
         serialportreader.h \

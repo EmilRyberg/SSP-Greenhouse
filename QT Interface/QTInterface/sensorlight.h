@@ -16,8 +16,6 @@ signals:
 public slots:
 
 private:
-    SerialPortReader *serial;
-    int sensorType;
     float scale(double A, double A1, double A2, double Min, double Max);
 };
 

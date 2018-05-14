@@ -8,11 +8,8 @@
 #include <ctime>
 
 SensorLight::SensorLight(SerialPortReader *serialPortReader, int sensorType, QObject *parent) :
-    serial(serialPortReader),
-    sensorType(sensorType),
     Sensor::Sensor(serialPortReader, sensorType, parent)
 {
-    connect(serial, &SerialPortReader::dataChanged, this, &Sensor::NewData);
 }
 
 float SensorLight::scale(double A, double A1, double A2, double Min, double Max)
