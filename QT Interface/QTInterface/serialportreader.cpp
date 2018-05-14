@@ -70,7 +70,7 @@ void SerialPortReader::emulateSerialData()
     fakeSensorData[1] = rand() % 10 + 15;
     fakeSensorData[2] = rand() % 20 + 60;
     fakeSensorData[3] = rand() % 20 + 40;
-    fakeSensorData[4] = rand() % 80 + 10;
+    fakeSensorData[4] = rand() % 500 + 500;
     emit dataChanged(fakeSensorData);
 }
     

@@ -44,7 +44,7 @@ Controller::Controller(QObject *parent)
     temperatureOutsideSensor = new Sensor(serialReader, 1, parent);
     humiditySensor = new Sensor(serialReader, 2, parent);
     humidityOutsideSensor = new Sensor(serialReader, 3, parent);
-    lightSensor = new Sensor(serialReader, 4, parent);
+    lightSensor = new SensorLight(serialReader, 4, parent);
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Controller::update);
@@ -58,7 +58,7 @@ void Controller::update()
     temperatureOutside = temperatureOutsideSensor->GetAverage();
     humidity = humiditySensor->GetAverage();
     humidityOutside = humidityOutsideSensor->GetAverage();
-    light = lightSensor->GetAverage();
+    light = lightSensor->GetTrimmedAverage();
 
     emit updateUiValues(temperature, temperatureOutside, humidity, humidityOutside, light);
 
