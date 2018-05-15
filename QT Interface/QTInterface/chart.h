@@ -21,6 +21,7 @@ public:
 
 private:
     QSplineSeries *m_series;
+    QSplineSeries *n_series;
     QStringList m_titles;
     QValueAxis *m_axis;
     qreal m_step;

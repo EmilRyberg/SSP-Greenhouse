@@ -64,6 +64,7 @@ void Controller::update()
 
     emit updateUiValues(temperature, temperatureOutside, humidity, humidityOutside, light);
     emit updateTemperatureGraph(temperature, temperatureOutside, time);
+    emit updateHumidityGraph(humidity, humidityOutside, time);
 
     doLogic();
 }
