@@ -20,16 +20,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     chartTemperature = new Chart;
-    chartTemperature->setTitle("Dynamic spline chart");
-    chartTemperature->legend()->hide();
+    //chartTemperature->setTitle("Temperature");
+    //chartTemperature->legend()->hide();
+    chartTemperature->legend()->setAlignment(Qt::AlignBottom);
     chartTemperature->setAnimationOptions(QChart::AllAnimations);
     QChartView *chartView = new QChartView(chartTemperature, ui->temperatureFrame);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->resize(ui->temperatureFrame->size());
 
     chartHumidity = new Chart;
-    chartHumidity->setTitle("Dynamic spline chart");
-    chartHumidity->legend()->hide();
+    //chartHumidity->setTitle("Humidity");
+    //chartHumidity->legend()->hide();
+    chartHumidity->legend()->setAlignment(Qt::AlignBottom);
     chartHumidity->setAnimationOptions(QChart::AllAnimations);
     QChartView *chartView2 = new QChartView(chartHumidity, ui->humidityFrame);
     chartView2->setRenderHint(QPainter::Antialiasing);
@@ -57,10 +59,10 @@ void MainWindow::updateValues(double temperature, double temperatureOutside, dou
 
 void MainWindow::updateTemperatureGraph(double temperature, double temperatureOutside, int seconds)
 {
-    chartTemperature->Append(seconds, temperature);
+    chartTemperature->Append(seconds, temperature, temperatureOutside);
 }
 
 void MainWindow::updateHumidityGraph(double humidity, double humidityOutside, int seconds)
 {
-    chartHumidity->Append(seconds, humidity);
+    chartHumidity->Append(seconds, humidity, humidityOutside);
 }

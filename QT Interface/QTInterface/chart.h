@@ -16,7 +16,7 @@ class Chart: public QChart
     Q_OBJECT
 public:
     Chart(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
-    void Append(double x, double y);
+    void Append(double time, double y, double y2);
     virtual ~Chart();
 
 private:
@@ -24,9 +24,8 @@ private:
     QSplineSeries *n_series;
     QStringList m_titles;
     QValueAxis *m_axis;
-    qreal m_step;
-    qreal m_x;
-    qreal m_y;
+    double lastY;
+    double lastY2;
 };
 
 #endif /* CHART_H */
