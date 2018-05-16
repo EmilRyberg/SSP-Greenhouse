@@ -22,6 +22,7 @@ public slots:
     void updateValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
     void updateTemperatureGraph(double temperature, double temperatureOutside, int seconds);
     void updateHumidityGraph(double humidity, double humidityOutside, int seconds);
+    void updateLightGraph(double light, int seconds);
 
 private:
     Ui::MainWindow *ui;
@@ -29,6 +30,7 @@ private:
     Controller *controller;
     Chart *chartTemperature;
     Chart *chartHumidity;
+    Chart *chartLight;
 };
 
 #endif // MAINWINDOW_H

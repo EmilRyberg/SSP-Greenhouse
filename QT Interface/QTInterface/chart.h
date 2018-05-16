@@ -3,6 +3,7 @@
 
 #include <QtCharts/QChart>
 #include <QtCore/QTimer>
+#include <QString>
 
 QT_CHARTS_BEGIN_NAMESPACE
 class QSplineSeries;
@@ -15,8 +16,10 @@ class Chart: public QChart
 {
     Q_OBJECT
 public:
-    Chart(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
+    Chart(int yAxisMin, int yAxisMax, bool twoLines = true, int xAxisMax = 40, QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
     void Append(double time, double y, double y2);
+    void AppendSingle(double time, double y);
+    void SetLabels(QString first, QString second = "");
     virtual ~Chart();
 
 private:
@@ -24,8 +27,11 @@ private:
     QSplineSeries *n_series;
     QStringList m_titles;
     QValueAxis *m_axis;
-    double lastY;
-    double lastY2;
+    const double kScrollStep = 10.0;
+    int yAxisMin;
+    int yAxisMax;
+    int xAxisMax;
+    bool useTwoLines;
 };
 
 #endif /* CHART_H */

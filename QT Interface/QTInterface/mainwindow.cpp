@@ -9,6 +9,7 @@
 #include <QChart>
 #include <QLineSeries>
 #include <QChartView>
+#include <iostream>
 
 using namespace QtCharts;
 
@@ -19,27 +20,34 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    chartTemperature = new Chart;
-    //chartTemperature->setTitle("Temperature");
-    //chartTemperature->legend()->hide();
+    chartTemperature = new Chart(0, 40);
     chartTemperature->legend()->setAlignment(Qt::AlignBottom);
     chartTemperature->setAnimationOptions(QChart::AllAnimations);
-    QChartView *chartView = new QChartView(chartTemperature, ui->temperatureFrame);
+    chartTemperature->SetLabels("Temp. inside", "Temp. outside");
+    QChartView *chartView = new QChartView(chartTemperature);
     chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->resize(ui->temperatureFrame->size());
+    ui->chartsLayout->addWidget(chartView);
 
-    chartHumidity = new Chart;
-    //chartHumidity->setTitle("Humidity");
-    //chartHumidity->legend()->hide();
+    chartHumidity = new Chart(0, 40);
     chartHumidity->legend()->setAlignment(Qt::AlignBottom);
     chartHumidity->setAnimationOptions(QChart::AllAnimations);
-    QChartView *chartView2 = new QChartView(chartHumidity, ui->humidityFrame);
+    chartHumidity->SetLabels("Humidity inside", "Humidity outside");
+    QChartView *chartView2 = new QChartView(chartHumidity);
     chartView2->setRenderHint(QPainter::Antialiasing);
-    chartView2->resize(ui->humidityFrame->size());
+    ui->chartsLayout->addWidget(chartView2);
+
+    chartLight = new Chart(0, 80, false);
+    chartLight->legend()->setAlignment(Qt::AlignBottom);
+    chartLight->setAnimationOptions(QChart::AllAnimations);
+    chartLight->SetLabels("Light");
+    QChartView *chartViewLight = new QChartView(chartLight);
+    chartView2->setRenderHint(QPainter::Antialiasing);
+    ui->chartsLayout->addWidget(chartViewLight);
 
     connect(controller, &Controller::updateUiValues, this, &MainWindow::updateValues);
     connect(controller, &Controller::updateTemperatureGraph, this, &MainWindow::updateTemperatureGraph);
     connect(controller, &Controller::updateHumidityGraph, this, &MainWindow::updateHumidityGraph);
+    connect(controller, &Controller::updateLightGraph, this, &MainWindow::updateLightGraph);
 }
 
 MainWindow::~MainWindow()
@@ -65,4 +73,9 @@ void MainWindow::updateTemperatureGraph(double temperature, double temperatureOu
 void MainWindow::updateHumidityGraph(double humidity, double humidityOutside, int seconds)
 {
     chartHumidity->Append(seconds, humidity, humidityOutside);
+}
+
+void MainWindow::updateLightGraph(double light, int seconds)
+{
+    chartLight->AppendSingle(seconds, light);
 }
