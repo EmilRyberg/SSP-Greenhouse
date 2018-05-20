@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport
+QT       += core gui serialport charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
@@ -30,7 +30,8 @@ SOURCES += \
         dataparser.cpp \
         controller.cpp \
         sensor.cpp \
-        sensorlight.cpp
+        sensorlight.cpp \
+    	chart.cpp
 
 HEADERS += \
         serialportreader.h \
@@ -38,7 +39,8 @@ HEADERS += \
         dataparser.h \
         controller.h \
         sensor.h \
-		sensorlight.h
+	sensorlight.h \
+    	chart.h
 
 FORMS += \
         mainwindow.ui

@@ -3,6 +3,7 @@
 
 #include <QByteArray>
 #include <QTextStream>
+#include <QDateTime>
 #include <vector>
 #include <serialportreader.h>
 #include <time.h>
@@ -15,7 +16,7 @@ class Sensor: public QObject
     public:
         explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = (QObject*)0);
         time_t Time();
-        tm* CurrentTime();
+        QDateTime CurrentTime();
         double GetAverage();
 
     public slots:

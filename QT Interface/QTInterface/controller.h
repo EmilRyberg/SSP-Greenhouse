@@ -22,6 +22,9 @@ public:
 
 signals:
     void updateUiValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
+    void updateTemperatureGraph(double temperature, double temperatureOutside, QDateTime time);
+    void updateHumidityGraph(double humidity, double humidityOutside, QDateTime time);
+    void updateLightGraph(double light, QDateTime time);
 
 public slots:
     void update();
@@ -43,6 +46,8 @@ private:
     double humidity;
     double humidityOutside;
     double light;
+
+    int time;
 
     SerialPortReader *serialReader = nullptr;
 
