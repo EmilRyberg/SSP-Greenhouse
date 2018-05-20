@@ -3,7 +3,9 @@
 
 #include <QtCharts/QChart>
 #include <QtCore/QTimer>
+#include <QDateTimeAxis>
 #include <QString>
+#include <QDateTime>
 
 QT_CHARTS_BEGIN_NAMESPACE
 class QSplineSeries;
@@ -16,9 +18,9 @@ class Chart: public QChart
 {
     Q_OBJECT
 public:
-    Chart(int yAxisMin, int yAxisMax, bool twoLines = true, int xAxisMax = 40, QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
-    void Append(double time, double y, double y2);
-    void AppendSingle(double time, double y);
+    Chart(int yAxisMin, int yAxisMax, bool twoLines = true, QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
+    void Append(QDateTime time, double y, double y2);
+    void AppendSingle(QDateTime time, double y);
     void SetLabels(QString first, QString second = "");
     virtual ~Chart();
 
@@ -26,11 +28,11 @@ private:
     QSplineSeries *m_series;
     QSplineSeries *n_series;
     QStringList m_titles;
-    QValueAxis *m_axis;
+    QDateTimeAxis *m_axis;
     const double kScrollStep = 10.0;
     int yAxisMin;
     int yAxisMax;
-    int xAxisMax;
+    int iterations = 0;
     bool useTwoLines;
 };
 

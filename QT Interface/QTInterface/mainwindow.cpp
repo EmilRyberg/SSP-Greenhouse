@@ -65,17 +65,17 @@ void MainWindow::updateValues(double temperature, double temperatureOutside, dou
     ui->lightNumber->display(light);
 }
 
-void MainWindow::updateTemperatureGraph(double temperature, double temperatureOutside, int seconds)
+void MainWindow::updateTemperatureGraph(double temperature, double temperatureOutside, QDateTime time)
 {
-    chartTemperature->Append(seconds, temperature, temperatureOutside);
+    chartTemperature->Append(time, temperature, temperatureOutside);
 }
 
-void MainWindow::updateHumidityGraph(double humidity, double humidityOutside, int seconds)
+void MainWindow::updateHumidityGraph(double humidity, double humidityOutside, QDateTime time)
 {
-    chartHumidity->Append(seconds, humidity, humidityOutside);
+    chartHumidity->Append(time, humidity, humidityOutside);
 }
 
-void MainWindow::updateLightGraph(double light, int seconds)
+void MainWindow::updateLightGraph(double light, QDateTime time)
 {
-    chartLight->AppendSingle(seconds, light);
+    chartLight->AppendSingle(time, light);
 }

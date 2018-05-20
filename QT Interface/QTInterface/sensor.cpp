@@ -21,12 +21,9 @@ double Sensor::GetAverage()
     return averageData;
 }
 
-tm* CurrentTime()
+QDateTime Sensor::CurrentTime()
 {
-    time_t t = time(NULL);
-    tm* timePtr = localtime(&t);
-
-    return timePtr;
+    return QDateTime::currentDateTime();
 }
 
 void Sensor::NewData(std::vector<double> data)

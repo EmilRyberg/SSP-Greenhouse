@@ -63,9 +63,9 @@ void Controller::update()
     light = lightSensor->GetAverage();
 
     emit updateUiValues(temperature, temperatureOutside, humidity, humidityOutside, light);
-    emit updateTemperatureGraph(temperature, temperatureOutside, time);
-    emit updateHumidityGraph(humidity, humidityOutside, time);
-    emit updateLightGraph(light, time);
+    emit updateTemperatureGraph(temperature, temperatureOutside, temperatureSensor->CurrentTime());
+    emit updateHumidityGraph(humidity, humidityOutside, humiditySensor->CurrentTime());
+    emit updateLightGraph(light, lightSensor->CurrentTime());
 
     doLogic();
 }

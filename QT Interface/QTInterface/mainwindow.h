@@ -20,9 +20,9 @@ public:
 
 public slots:
     void updateValues(double temperature, double temperatureOutside, double humidity, double humidityOutside, double light);
-    void updateTemperatureGraph(double temperature, double temperatureOutside, int seconds);
-    void updateHumidityGraph(double humidity, double humidityOutside, int seconds);
-    void updateLightGraph(double light, int seconds);
+    void updateTemperatureGraph(double temperature, double temperatureOutside, QDateTime time);
+    void updateHumidityGraph(double humidity, double humidityOutside, QDateTime time);
+    void updateLightGraph(double light, QDateTime time);
 
 private:
     Ui::MainWindow *ui;
