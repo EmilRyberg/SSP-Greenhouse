@@ -25,7 +25,7 @@ bool SerialPortReader::AttachToSerial(QString name, int baudRate)
     serialPort->setPortName(name);
     serialPort->setBaudRate(baudRate);
 
-    if (!serialPort->open(QIODevice::ReadOnly))
+    if (!serialPort->open(QIODevice::ReadWrite))
     {
         latestError = serialPort->errorString();
 
@@ -72,14 +72,14 @@ void SerialPortReader::emulateSerialData()
     
 void SerialPortReader::SendData(int pin, char method, int value)
 {
-    std::string command = "{" + pin;
+    std::string command = "{" + std::to_string(pin);
     command += ",";
     command += method;
     command += ",";
-    command += value;
+    command += std::to_string(value);
     command += "}";
-    serialPort->write(command.c_str());
     std::cout << "sent " << command << std::endl;
+    serialPort->write(command.c_str());
 }
 
 

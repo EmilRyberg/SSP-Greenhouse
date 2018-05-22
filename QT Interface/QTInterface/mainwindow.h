@@ -27,6 +27,7 @@ public slots:
     void updateFanStatus(bool s);
     void updateHeaterStatus(bool s);
     void updateLightStatus(bool s);
+    void updateWaterStatus(bool s);
 
 private:
     Ui::MainWindow *ui;

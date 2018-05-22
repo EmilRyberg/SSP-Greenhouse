@@ -16,9 +16,17 @@ Sensor::Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *pare
 
 double Sensor::GetAverage()
 {
-    double averageData = std::accumulate(buffer.begin(), buffer.end(), 0) / buffer.size();
-    buffer.clear();
-    return averageData;
+    if (buffer.size() == 0)
+    {
+        std::cout << "Buffer is empty, likely no data from Arduino!" << endl;
+        return -1;
+    }
+    else
+    {
+        double averageData = std::accumulate(buffer.begin(), buffer.end(), 0) / buffer.size();
+        buffer.clear();
+        return averageData;
+    }
 }
 
 QDateTime Sensor::CurrentTime()

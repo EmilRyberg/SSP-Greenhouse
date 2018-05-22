@@ -30,6 +30,7 @@ signals:
     void updateUiFanStatus(bool s);
     void updateUiHeaterStatus(bool s);
     void updateUiLightStatus(bool s);
+    void updateUiWaterStatus(bool s);
 
 public slots:
     void update();
@@ -39,7 +40,7 @@ public slots:
     void updateMaxHumidity(int n);
 
 private:
-    const int fanPin = 2;
+    const int fanPin = 13;
     const int lightPinR = 3;
     const int lightPinG = 3;
     const int lightPinB = 3;

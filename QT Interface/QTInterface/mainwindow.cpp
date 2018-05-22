@@ -58,6 +58,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(controller, &Controller::updateUiFanStatus, this, &MainWindow::updateFanStatus);
     connect(controller, &Controller::updateUiHeaterStatus, this, &MainWindow::updateHeaterStatus);
     connect(controller, &Controller::updateUiLightStatus, this, &MainWindow::updateLightStatus);
+    connect(controller, &Controller::updateUiWaterStatus, this, &MainWindow::updateWaterStatus);
+
+    ui->serialStatus->setStyleSheet("QCheckBox::indicator:unchecked {image: url(../QTInterface/img/red.png);} QCheckBox::indicator:checked {image: url(../QTInterface/img/green.png);}");
+    ui->fanStatus->setStyleSheet("QCheckBox::indicator:unchecked {image: url(../QTInterface/img/darkGreen.png);} QCheckBox::indicator:checked {image: url(../QTInterface/img/green.png);}");
+    ui->heatStatus->setStyleSheet("QCheckBox::indicator:unchecked {image: url(../QTInterface/img/darkGreen.png);} QCheckBox::indicator:checked {image: url(../QTInterface/img/green.png);}");
+    ui->lightStatus->setStyleSheet("QCheckBox::indicator:unchecked {image: url(../QTInterface/img/darkGreen.png);} QCheckBox::indicator:checked {image: url(../QTInterface/img/green.png);}");
+    ui->waterStatus->setStyleSheet("QCheckBox::indicator:unchecked {image: url(../QTInterface/img/darkGreen.png);} QCheckBox::indicator:checked {image: url(../QTInterface/img/green.png);}");
+
+
 }
 
 MainWindow::~MainWindow()
@@ -105,4 +114,8 @@ void MainWindow::updateHeaterStatus(bool s)
 void MainWindow::updateLightStatus(bool s)
 {
     ui->lightStatus->setChecked(s);
+}
+void MainWindow::updateWaterStatus(bool s)
+{
+    ui->waterStatus->setChecked(s);
 }

@@ -119,10 +119,12 @@ void Controller::lightOff()
 void Controller::waterOn()
 {
     serialReader->SendData(waterPin,'d',1);
+    emit updateUiWaterStatus(true);
 }
 void Controller::waterOff()
 {
     serialReader->SendData(waterPin,'d',0);
+    emit updateUiWaterStatus(false);
 }
 void Controller::heatOn()
 {
@@ -165,6 +167,15 @@ void Controller::doLogic()
     {
         heatOff(); //in range, shutting devices down
         fanOff();
+    }
+
+    if(humidity < humidityMin)
+    {
+        waterOn();
+    }
+    else if(humidity > humidityMax)
+    {
+        waterOff();
     }
 
     if(light < lightMin)

@@ -20,16 +20,24 @@ float SensorLight::scale(double A, double A1, double A2, double Min, double Max)
 
 double SensorLight::GetTrimmedAverage()
 {
-    double averageData = std::accumulate(buffer.begin(), buffer.end(), 0) / buffer.size();
-    averageData = scale(averageData, 500, 1023, 0, 100);
-    if (averageData < 0)
+    if (buffer.size() == 0)
     {
-        averageData = 0;
+        std::cout << "Buffer is empty, likely no data from Arduino!" << endl;
+        return -1;
     }
-    else if (averageData > 100)
+    else
     {
-        averageData = 100;
+        double averageData = std::accumulate(buffer.begin(), buffer.end(), 0) / buffer.size();
+        averageData = scale(averageData, 500, 1023, 0, 100);
+        if (averageData < 0)
+        {
+            averageData = 0;
+        }
+        else if (averageData > 100)
+        {
+            averageData = 100;
+        }
+        buffer.clear();
+        return averageData;
     }
-    buffer.clear();
-    return averageData;
 }
