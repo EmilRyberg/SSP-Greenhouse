@@ -15,7 +15,6 @@ class Sensor: public QObject
 
     public:
         explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = (QObject*)0);
-        time_t Time();
         QDateTime CurrentTime();
         double GetAverage();
 

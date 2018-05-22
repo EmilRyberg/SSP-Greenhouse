@@ -52,10 +52,6 @@ void SerialPortReader::handleReadyRead()
     std::vector<double> parsedData = dataParser.parseData(&m_readData);
     if (!parsedData.empty())
     {
-        for(double f : parsedData)
-        {
-            std::cout << f << std::endl;
-        }
         std::vector<double> sensorData = parsedData;
 
         emit dataChanged(sensorData); //new general datavector
