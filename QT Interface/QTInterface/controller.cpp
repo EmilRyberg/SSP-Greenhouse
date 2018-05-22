@@ -40,6 +40,10 @@ Controller::Controller(QObject *parent)
                           .arg(serialPortName)
                           .arg(serialReader->GetLatestError())
                        << endl;
+        emit(updateUiSerialStatus(false));
+    }
+    else
+    {
     }
     temperatureSensor = new Sensor(serialReader, 0, parent);
     temperatureOutsideSensor = new Sensor(serialReader, 1, parent);
@@ -68,6 +72,23 @@ void Controller::update()
     emit updateLightGraph(light, lightSensor->CurrentTime());
 
     doLogic();
+}
+
+void Controller::updateMinTemperature(int n)
+{
+    temperatureMin = n;
+}
+void Controller::updateMaxTemperature(int n)
+{
+    temperatureMax = n;
+}
+void Controller::updateMinHumidity(int n)
+{
+    humidityMin = n;
+}
+void Controller::updateMaxHumidity(int n)
+{
+    humidityMax = n;
 }
 
 void Controller::fanOn()

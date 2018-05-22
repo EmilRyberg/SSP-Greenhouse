@@ -25,8 +25,17 @@ signals:
     void updateHumidityGraph(double humidity, double humidityOutside, QDateTime time);
     void updateLightGraph(double light, QDateTime time);
 
+    void updateUiSerialStatus(bool s);
+    void updateUiFanStatus(bool s);
+    void updateUiHeaterStatus(bool s);
+    void updateUiLightStatus(bool s);
+
 public slots:
     void update();
+    void updateMinTemperature(int n);
+    void updateMaxTemperature(int n);
+    void updateMinHumidity(int n);
+    void updateMaxHumidity(int n);
 
 private:
     const int fanPin = 2;

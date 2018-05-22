@@ -22,10 +22,11 @@ public:
     void SendData(int pin, char method, int value);
 
 public slots:
-    void emulateSerialData();
+
 
 private slots:
     void handleReadyRead();
+    void emulateSerialData();
 
 signals:
     void dataChanged(std::vector<double> value);

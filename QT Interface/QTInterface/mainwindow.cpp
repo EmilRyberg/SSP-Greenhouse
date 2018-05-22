@@ -48,6 +48,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(controller, &Controller::updateTemperatureGraph, this, &MainWindow::updateTemperatureGraph);
     connect(controller, &Controller::updateHumidityGraph, this, &MainWindow::updateHumidityGraph);
     connect(controller, &Controller::updateLightGraph, this, &MainWindow::updateLightGraph);
+
+    connect(ui->minTemperatureInput, SIGNAL(valueChanged(int)), controller, SLOT(updateMinTemperature(int)));
+    connect(ui->maxTemperatureInput, SIGNAL(valueChanged(int)), controller, SLOT(updateMaxTemperature(int)));
+    connect(ui->minHumidityInput, SIGNAL(valueChanged(int)), controller, SLOT(updateMinHumidity(int)));
+    connect(ui->maxHumidityInput, SIGNAL(valueChanged(int)), controller, SLOT(updateMaxHumidity(int)));
+
+    connect(controller, &Controller::updateUiSerialStatus, this, &MainWindow::updateSerialStatus);
+    connect(controller, &Controller::updateUiFanStatus, this, &MainWindow::updateFanStatus);
+    connect(controller, &Controller::updateUiHeaterStatus, this, &MainWindow::updateHeaterStatus);
+    connect(controller, &Controller::updateUiLightStatus, this, &MainWindow::updateLightStatus);
 }
 
 MainWindow::~MainWindow()
@@ -78,4 +88,21 @@ void MainWindow::updateHumidityGraph(double humidity, double humidityOutside, QD
 void MainWindow::updateLightGraph(double light, QDateTime time)
 {
     chartLight->AppendSingle(time, light);
+}
+
+void MainWindow::updateSerialStatus(bool s)
+{
+    ui->serialStatus->setChecked(1);
+}
+void MainWindow::updateFanStatus(bool s)
+{
+    ui->fanStatus->setChecked(1);
+}
+void MainWindow::updateHeaterStatus(bool s)
+{
+    ui->heatStatus->setChecked(s);
+}
+void MainWindow::updateLightStatus(bool s)
+{
+    ui->lightStatus->setChecked(s);
 }

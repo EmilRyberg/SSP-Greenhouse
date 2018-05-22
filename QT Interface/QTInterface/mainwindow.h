@@ -23,6 +23,10 @@ public slots:
     void updateTemperatureGraph(double temperature, double temperatureOutside, QDateTime time);
     void updateHumidityGraph(double humidity, double humidityOutside, QDateTime time);
     void updateLightGraph(double light, QDateTime time);
+    void updateSerialStatus(bool s);
+    void updateFanStatus(bool s);
+    void updateHeaterStatus(bool s);
+    void updateLightStatus(bool s);
 
 private:
     Ui::MainWindow *ui;
