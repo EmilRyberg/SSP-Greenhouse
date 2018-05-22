@@ -68,6 +68,8 @@ private:
 
     QTimer *timer;
 
+    bool serialStatus;
+
     void doLogic();
 };
 

@@ -40,10 +40,11 @@ Controller::Controller(QObject *parent)
                           .arg(serialPortName)
                           .arg(serialReader->GetLatestError())
                        << endl;
-        emit(updateUiSerialStatus(false));
+        serialStatus = false;
     }
     else
     {
+        serialStatus = true;
     }
     temperatureSensor = new Sensor(serialReader, 0, parent);
     temperatureOutsideSensor = new Sensor(serialReader, 1, parent);
@@ -71,6 +72,8 @@ void Controller::update()
     emit updateHumidityGraph(humidity, humidityOutside, humiditySensor->CurrentTime());
     emit updateLightGraph(light, lightSensor->CurrentTime());
 
+    emit updateUiSerialStatus(serialStatus);
+
     doLogic();
 }
 
@@ -94,20 +97,24 @@ void Controller::updateMaxHumidity(int n)
 void Controller::fanOn()
 {
     serialReader->SendData(fanPin,'d',1);
+    emit updateUiFanStatus(true);
 }
 void Controller::fanOff()
 {
     serialReader->SendData(fanPin,'d',0);
+    emit updateUiFanStatus(false);
 }
 void Controller::lightOn()
 {
     serialReader->SendData(lightPinG,'d',1);
     serialReader->SendData(lightPinB,'d',1);
+    emit updateUiLightStatus(true);
 }
 void Controller::lightOff()
 {
     serialReader->SendData(lightPinG,'d',0);
     serialReader->SendData(lightPinB,'d',0);
+    emit updateUiLightStatus(false);
 }
 void Controller::waterOn()
 {
@@ -120,10 +127,12 @@ void Controller::waterOff()
 void Controller::heatOn()
 {
     serialReader->SendData(heatPin,'d',1);
+    emit updateUiHeaterStatus(true);
 }
 void Controller::heatOff()
 {
     serialReader->SendData(heatPin,'d',0);
+    emit updateUiHeaterStatus(false);
 }
 
 void Controller::doLogic()

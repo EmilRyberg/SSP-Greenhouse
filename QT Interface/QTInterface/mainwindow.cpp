@@ -92,11 +92,11 @@ void MainWindow::updateLightGraph(double light, QDateTime time)
 
 void MainWindow::updateSerialStatus(bool s)
 {
-    ui->serialStatus->setChecked(1);
+    ui->serialStatus->setChecked(s);
 }
 void MainWindow::updateFanStatus(bool s)
 {
-    ui->fanStatus->setChecked(1);
+    ui->fanStatus->setChecked(s);
 }
 void MainWindow::updateHeaterStatus(bool s)
 {
