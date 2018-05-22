@@ -15,17 +15,17 @@ class Sensor: public QObject
 
     public:
         explicit Sensor(SerialPortReader *serialPortReader, int sensorType, QObject *parent = (QObject*)0);
-        time_t Time();
         QDateTime CurrentTime();
         double GetAverage();
 
     public slots:
         void NewData(std::vector<double> data);
 
-    private:
+    protected:
         SerialPortReader *serial;
         int sensorType;
         std::vector<double> buffer;
+
 };
 
 #endif // SENSOR_H

@@ -30,7 +30,8 @@ SOURCES += \
         dataparser.cpp \
         controller.cpp \
         sensor.cpp \
-    chart.cpp
+        sensorlight.cpp \
+    	chart.cpp
 
 HEADERS += \
         serialportreader.h \
@@ -38,7 +39,8 @@ HEADERS += \
         dataparser.h \
         controller.h \
         sensor.h \
-    chart.h
+	sensorlight.h \
+    	chart.h
 
 FORMS += \
         mainwindow.ui

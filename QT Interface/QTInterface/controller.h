@@ -4,6 +4,7 @@
 #include <QObject>
 #include "serialportreader.h"
 #include "sensor.h"
+#include "sensorlight.h"
 
 class Controller : public QObject
 {
@@ -63,7 +64,7 @@ private:
     Sensor *temperatureOutsideSensor;
     Sensor *humiditySensor;
     Sensor *humidityOutsideSensor;
-    Sensor *lightSensor;
+    SensorLight *lightSensor;
 
     QTimer *timer;
 

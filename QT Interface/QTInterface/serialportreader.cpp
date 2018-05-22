@@ -52,10 +52,6 @@ void SerialPortReader::handleReadyRead()
     std::vector<double> parsedData = dataParser.parseData(&m_readData);
     if (!parsedData.empty())
     {
-        for(double f : parsedData)
-        {
-            std::cout << f << std::endl;
-        }
         std::vector<double> sensorData = parsedData;
 
         emit dataChanged(sensorData); //new general datavector
@@ -70,7 +66,7 @@ void SerialPortReader::emulateSerialData()
     fakeSensorData[1] = rand() % 10 + 15;
     fakeSensorData[2] = rand() % 20 + 60;
     fakeSensorData[3] = rand() % 20 + 40;
-    fakeSensorData[4] = rand() % 80 + 10;
+    fakeSensorData[4] = rand() % 500 + 500;
     emit dataChanged(fakeSensorData);
 }
     
