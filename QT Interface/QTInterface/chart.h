@@ -27,7 +27,6 @@ public:
 private:
     QSplineSeries *m_series;
     QSplineSeries *n_series;
-    QStringList m_titles;
     QDateTimeAxis *m_axis;
     const double kScrollStep = 10.0;
     int yAxisMin;
