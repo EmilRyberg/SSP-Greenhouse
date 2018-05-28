@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //Sets up chart for temperature
     chartTemperature = new Chart(0, 40);
     chartTemperature->legend()->setAlignment(Qt::AlignBottom);
     chartTemperature->setAnimationOptions(QChart::AllAnimations);
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chartView->setRenderHint(QPainter::Antialiasing);
     ui->chartsLayout->addWidget(chartView);
 
+    //Sets up chart for humidity
     chartHumidity = new Chart(0, 40);
     chartHumidity->legend()->setAlignment(Qt::AlignBottom);
     chartHumidity->setAnimationOptions(QChart::AllAnimations);
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chartView2->setRenderHint(QPainter::Antialiasing);
     ui->chartsLayout->addWidget(chartView2);
 
+    //Sets up chart for light
     chartLight = new Chart(0, 80, false);
     chartLight->legend()->setAlignment(Qt::AlignBottom);
     chartLight->setAnimationOptions(QChart::AllAnimations);
@@ -44,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chartView2->setRenderHint(QPainter::Antialiasing);
     ui->chartsLayout->addWidget(chartViewLight);
 
+    //Connects to  get data from controller.cpp
     connect(controller, &Controller::updateUiValues, this, &MainWindow::updateValues);
     connect(controller, &Controller::updateTemperatureGraph, this, &MainWindow::updateTemperatureGraph);
     connect(controller, &Controller::updateHumidityGraph, this, &MainWindow::updateHumidityGraph);

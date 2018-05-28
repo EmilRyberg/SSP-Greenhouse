@@ -18,12 +18,14 @@ Chart::Chart(int yAxisMin, int yAxisMax, bool twoLines, QGraphicsItem *parent, Q
 {
     m_series = new QSplineSeries(this);
 
+    //Color of the pen
     QPen green(Qt::green);
     QPen red(Qt::red);
     green.setWidth(3);
     red.setWidth(3);
     m_series->setPen(green);
 
+    //Sets up use of 2 pens in 2 graph
     if(useTwoLines)
     {
         n_series = new QSplineSeries(this);
@@ -45,8 +47,10 @@ Chart::~Chart()
 
 }
 
+//Append for 2 pens in 1 graph
 void Chart::Append(QDateTime time, double y, double y2)
 {
+    //Automatic scroll feature
     iterations++;
     qreal scrollX = (plotArea().width() / m_axis->tickCount());
     m_series->append(time.toMSecsSinceEpoch(), y);
@@ -72,8 +76,10 @@ void Chart::Append(QDateTime time, double y, double y2)
     }
 }
 
+//AppendSingle for 1 pen in 1 graph
 void Chart::AppendSingle(QDateTime time, double y)
 {
+    //Automatic scrll feature
     iterations++;
     qreal scrollX = (plotArea().width() / m_axis->tickCount());
     m_series->append(time.toMSecsSinceEpoch(), y);
