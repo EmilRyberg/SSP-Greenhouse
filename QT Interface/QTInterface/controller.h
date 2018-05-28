@@ -40,12 +40,12 @@ public slots:
     void updateMaxHumidity(int n);
 
 private:
-    const int fanPin = 13;
-    const int lightPinR = 3;
-    const int lightPinG = 3;
-    const int lightPinB = 3;
-    const int waterPin = 4;
-    const int heatPin = 5;
+    const int fanPin = 5;
+    const int lightPinR = 6;
+    const int lightPinG = 6;
+    const int lightPinB = 6;
+    const int waterPin = 10;
+    const int heatPin = 9;
 
     float temperatureMin, temperatureMax;
     float humidityMin, humidityMax;

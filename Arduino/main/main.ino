@@ -79,7 +79,7 @@ void loop() {
 
     //command reading, format: {pin, method, value, pin2, method2, value2}
     if (Serial.available()) {
-        delay(100);
+        delay(10);
         Serial.find("{");
         while (Serial.peek() != '}') {
             long pin = Serial.parseInt();
@@ -98,9 +98,10 @@ void loop() {
                 digitalWrite(pin, value);
             }
         }
-        while (Serial.available()) {
-            Serial.read();
-        }
+        //while (Serial.available()) {
+        //    Serial.read();
+        //}
+        Serial.read();
     }
 
     delay(2000);
